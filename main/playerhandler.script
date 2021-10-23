@@ -1,0 +1,204 @@
+function interact()
+	--print("attempt")
+	if interactType ~= "" and interactName ~= "" and interactContent ~= "" then
+		print("pass")
+		msg.post("/sign", "enable")
+		isUi = true
+	end
+end
+function sendDialogue(charimg, charname, text, option1, option2, option3, option4, callback)
+
+	msg.post("/dialogue#dialogue", "set", { charimg = charimg, charname = charname, text = text, option1 = option1, option2 = option2, option3 = option3, option4 = option4, callback = callback} )
+	--[[	msg.post("/dialogue", "disable")
+	if charimg == "" then
+		charimg = gui.get_flipbook(gui.get_node("face"))
+	end
+	gui.play_flipbook(gui.get_node("face"), charimg)
+	gui.set_text(gui.get_node("name"), charname)
+	gui.set_text(gui.get_node("dialogue"), text)
+	gui.set_text(gui.get_node("option1"), option1)
+	gui.set_text(gui.get_node("option2"), option2)
+	gui.set_text(gui.get_node("option3"), option3)
+	gui.set_text(gui.get_node("option4"), option4)
+	globalDialogueCallback = callback
+
+	msg.post("/dialogue", "enable")]]--
+end
+function scenemove(dir)
+	--print(scene)
+	print("dir "..dir)
+	if scene == 0 then
+		print(dir)
+		if dir == "left" then
+			scene = 1
+			interactType = ""
+			interactName = ""
+			interactContent = ""
+			msg.post("/dialogue", "enable")
+			msg.post("/dialogue#dialogue", "enable")
+			msg.post("/background#sprite", "play_animation", { id = hash("bg_hjälp") })
+			msg.post("/foreground#sprite", "play_animation", { id = hash("fg_floor") })
+			pos = vmath.vector3(1100, 180, pos.z)
+			msg.post("/dialogue#dialogue", "set", { charimg = "", charname = "Will Smith", text = "Fortnite, ", option1 = "and Mike Arse Brew Leaf", option2 = "and Mikael Brow Lead", option3 = "and Mark Mass Url Leave", option4 = "and Marques Brownlee", callback = "marques" } )
+			--charimg works, (Aco), charname works, 
+			--print("dialogue")
+			if pkeodNotYet then
+				pkeodNotYet = false
+				sendDialogue("", "Pkeod Pkeodson", "Hur mår du?", "English, please", "sí?", "engelska, tack", "Are you pkeod? THE pkeod?", "hjalp1")
+			end
+		end
+	elseif scene == 1 then
+		if dir == "left" then
+			scene = 2
+			interactType = ""
+			interactName = ""
+			interactContent = ""
+			--msg.post("/dialogue", "enable")
+			--msg.post("/dialogue#dialogue", "enable")
+			msg.post("/background#sprite", "play_animation", { id = hash("bg_corridor1") })
+			msg.post("/foreground#sprite", "play_animation", { id = hash("fg_corridor1") })
+			pos = vmath.vector3(1100, 210, pos.z)
+			--msg.post("/dialogue#dialogue", "set", { charimg = "", charname = "Will Smith", text = "Fortnite, ", option1 = "and Mike Arse Brew Leaf", option2 = "and Mikael Brow Lead", option3 = "and Mark Mass Url Leave", option4 = "and Marques Brownlee", callback = "marques" } )
+			--charimg works, (Aco), charname works, 
+			--print("dialogue")
+
+			--sendDialogue("", "Pkeod Pkeodson", "Hur mår du?", "English, please", "sí?", "engelska, tack", "Are you pkeod? THE pkeod?", "hjalp1")
+		elseif dir == "right" then
+			scene = 0
+			interactType = ""
+			interactName = ""
+			interactContent = ""
+			--msg.post("/dialogue", "enable")
+			--msg.post("/dialogue#dialogue", "enable")
+			msg.post("/background#sprite", "play_animation", { id = hash("bg_landing") })
+			msg.post("/foreground#sprite", "play_animation", { id = hash("fg_landing") })
+			pos = vmath.vector3(1100, 360, pos.z)
+		end
+	elseif scene == 2 then
+		if dir == "left" then
+			scene = 3
+			interactType = ""
+			interactName = ""
+			interactContent = ""
+			--msg.post("/dialogue", "enable")
+			--msg.post("/dialogue#dialogue", "enable")
+			msg.post("/background#sprite", "play_animation", { id = hash("bg_stair1") })
+			msg.post("/foreground#sprite", "play_animation", { id = hash("fg_stair1") })
+			pos = vmath.vector3(1100, 360, pos.z)
+			--msg.post("/dialogue#dialogue", "set", { charimg = "", charname = "Will Smith", text = "Fortnite, ", option1 = "and Mike Arse Brew Leaf", option2 = "and Mikael Brow Lead", option3 = "and Mark Mass Url Leave", option4 = "and Marques Brownlee", callback = "marques" } )
+			--charimg works, (Aco), charname works, 
+			--print("dialogue")
+
+			--sendDialogue("", "Pkeod Pkeodson", "Hur mår du?", "English, please", "sí?", "engelska, tack", "Are you pkeod? THE pkeod?", "hjalp1")
+		elseif dir == "right" then
+			scene = 1
+			interactType = ""
+			interactName = ""
+			interactContent = ""
+			--msg.post("/dialogue", "enable")
+			--msg.post("/dialogue#dialogue", "enable")
+			msg.post("/background#sprite", "play_animation", { id = hash("bg_hjälp") })
+			msg.post("/foreground#sprite", "play_animation", { id = hash("fg_floor") })
+			pos = vmath.vector3(50, 180, pos.z)
+			--msg.post("/dialogue#dialogue", "set", { charimg = "", charname = "Will Smith", text = "Fortnite, ", option1 = "and Mike Arse Brew Leaf", option2 = "and Mikael Brow Lead", option3 = "and Mark Mass Url Leave", option4 = "and Marques Brownlee", callback = "marques" } )
+			--charimg works, (Aco), charname works, 
+			--print("dialogue")
+		end
+	
+	elseif scene == 3 then
+		--print("three")
+		if dir == "right" then
+			--print("right")
+			scene = 2
+			interactType = ""
+			interactName = ""
+			interactContent = ""
+			--msg.post("/dialogue", "enable")
+			--msg.post("/dialogue#dialogue", "enable")
+			msg.post("/background#sprite", "play_animation", { id = hash("bg_corridor1") })
+			msg.post("/foreground#sprite", "play_animation", { id = hash("fg_corridor1") })
+			pos = vmath.vector3(50, 210, pos.z)
+		elseif dir == "top" then
+			sound.stop("/bk#sound")
+			sound.play("/bk#elevator")
+			scene = 4
+			interactType = ""
+			interactName = ""
+			interactContent = ""
+			--msg.post("/dialogue", "enable")
+			--msg.post("/dialogue#dialogue", "enable")
+			msg.post("/background#sprite", "play_animation", { id = hash("bg_elevator") })
+			msg.post("/foreground#sprite", "play_animation", { id = hash("fg_floor") })
+			pos = vmath.vector3(616.66668701172, 264.00003051758, 0)
+			msg.post("/bk#script", "moveable", { moveable = false } )--disable movement in elevator
+			msg.post("/dialogue#dialogue", "set", { charimg = "elevatorpad", charname = "Elevator Keypad", text = "Select a floor", option1 = "Press the button", option2 = "Use button", option3 = "Sí", option4 = "Punch Lightbulb", callback = "elevator" } )
+		else
+			print("EXTREME ERR: SCENE SWITCH ERROR IN SCENE 3, DIR:"..dir)
+		end
+	elseif scene == 4 then
+		if dir == "" then
+			--
+		end
+	else
+		print("EXTREME ERR: SCENE SWITCH ERROR IN SCENE"..scene..", DIR:"..dir)
+		
+	end
+end
+function process_collision(id)
+	if id == hash("/signpost0") then
+		--print("set")
+		interactType = "sign" --system type
+		interactName = "Sign" --display title
+		interactContent = "Welcome to Station 0! We offer many services, follow the path to the help desk to learn more!" --display content
+	else
+		print(id)
+	end
+end
+function init(self)
+	msg.post("/dialogue", "disable")
+	pkeodNotYet = true
+	lastScene = "-1"
+	-- Add initialization code here
+	-- Remove this function if not needed
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Remove this function if not needed
+	--print("reset")
+	interactType = ""
+	interactName = ""
+	interactContent = ""
+	if lastScene ~= tostring(scene) then
+		print("switching from "..lastScene.." to "..tostring(scene))
+		lastScene = tostring(scene)
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("fetch_pos") then
+		msg.post("/bk#script", "pos", { pos = go.get_position() })
+	elseif message_id == hash("collision_response") then
+		process_collision(message.other_id)
+		--interact()
+		--print("colliding with "..message.other_id)
+	elseif message_id == hash("interact") then
+		interact()
+	elseif message_id == hash("down") then
+		--print("down received")
+		scenemove("down")
+	elseif message_id == hash("left") then
+		scenemove("left")
+	elseif message_id == hash("top") then
+		scenemove("top")
+	elseif message_id == hash("right") then
+		scenemove("right")
+	elseif message_id == hash("regen") then
+		pkeodNotYet = true
+	end
+end

@@ -1,0 +1,48 @@
+key_trigger {
+  input: KEY_SPACE
+  action: "space"
+}
+key_trigger {
+  input: KEY_W
+  action: "w"
+}
+key_trigger {
+  input: KEY_A
+  action: "a"
+}
+key_trigger {
+  input: KEY_S
+  action: "s"
+}
+key_trigger {
+  input: KEY_D
+  action: "d"
+}
+key_trigger {
+  input: KEY_ESC
+  action: "esc"
+}
+key_trigger {
+  input: KEY_KP_0
+  action: "debug"
+}
+key_trigger {
+  input: KEY_1
+  action: "one"
+}
+key_trigger {
+  input: KEY_2
+  action: "two"
+}
+key_trigger {
+  input: KEY_3
+  action: "tri"
+}
+key_trigger {
+  input: KEY_4
+  action: "fyra"
+}
+mouse_trigger {
+  input: MOUSE_BUTTON_LEFT
+  action: "touch"
+}

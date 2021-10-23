@@ -1,0 +1,49 @@
+function init(self)
+	-- Add initialization code here
+	-- Remove this function if not needed
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	sound.stop("/bk#sound")
+	--sound.stop("/bk#main")
+	--sound.stop("/bk#theme")
+	sound.stop("/bk#sad")
+	sound.stop("/bk#elevator")
+	sound.stop("/bk#drama")
+	if message_id == hash("won") then
+		gui.set_text(gui.get_node("gamestate"), "YOU WIN")
+		gui.set_text(gui.get_node("ending"), [[YOU GOT THE
+		]] .. message.ending .. " ENDING")
+		gui.set_color(gui.get_node("bg"), vmath.vector3(0,255,0))
+		sound.play("/bk#won")
+		
+	elseif message_id == hash("lost") then
+		gui.set_text(gui.get_node("gamestate"), "GAME OVER")
+		gui.set_text(gui.get_node("ending"), [[YOU GOT THE
+		]] .. message.ending .. " ENDING")
+		gui.set_color(gui.get_node("bg"), vmath.vector3(255,0,0))
+		sound.play("/bk#lost")
+		
+	end
+	
+end
+
+function on_input(self, action_id, action)
+	-- Add input-handling code here
+	-- Remove this function if not needed
+end
+
+function on_reload(self)
+	-- Add input-handling code here
+	-- Remove this function if not needed
+end

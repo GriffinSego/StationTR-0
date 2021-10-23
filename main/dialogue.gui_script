@@ -1,0 +1,296 @@
+function elevatorOne()
+	sound.stop("/bk#elevator")
+	sound.play("/bk#drama")
+	scene = -2
+	interactType = ""
+	interactName = ""
+	interactContent = ""
+	--msg.post("/dialogue", "enable")
+	--msg.post("/dialogue#dialogue", "enable")
+	msg.post("/background#sprite", "play_animation", { id = hash("bg_bossoffice") })
+	msg.post("/foreground#sprite", "play_animation", { id = hash("fg_floor") })
+	pos = vmath.vector3(616, 264, 0)
+	msg.post("/bk#script", "moveable", { moveable = true } )--disable movement in elevator
+	msg.post(".", "disable")
+end
+function elevatorTri()
+	sound.stop("/bk#elevator")
+	sound.play("/bk#sad")
+	scene = -3
+	interactType = ""
+	interactName = ""
+	interactContent = ""
+	--msg.post("/dialogue", "enable")
+	--msg.post("/dialogue#dialogue", "enable")
+	msg.post("/background#sprite", "play_animation", { id = hash("bg_galaxy") })
+	msg.post("/foreground#sprite", "play_animation", { id = hash("fg_roof") })
+	msg.post("/player#sprite", "play_animation", { id = hash("elevator") })
+	pos = vmath.vector3(616, 264, 0)
+	slowMove = true
+	msg.post("bk#script", "inspace")
+	msg.post("/bk#script", "moveable", { moveable = false } )--disable movement in elevator
+	msg.post(".", "disable")
+end
+function elevatorFour()
+	callEnding(false, "LIGHTBULBS AR GOOD")
+end
+function user(option, callback)
+	local function dialogue(charimg, charname, text, option1, option2, option3, option4, cb)
+		print("aye")
+		callback = cb
+		msg.post("/dialogue#dialogue", "set", { charimg = charimg, charname = charname, text = text, option1 = option1, option2 = option2, option3 = option3, option4 = option4, callback = cb} )
+		--[[
+		msg.post("/dialogue", "disable")
+		if charimg == "" then
+			charimg = "bjornirl"
+			--charimg = gui.get_flipbook(gui.get_node("face"))
+		end
+		gui.play_flipbook(gui.get_node("face"), charimg)
+		gui.set_text(gui.get_node("name"), charname)
+		gui.set_text(gui.get_node("dialogue"), text)
+		gui.set_text(gui.get_node("option1"), "1. " .. option1)
+		gui.set_text(gui.get_node("option2"), "2. " .. option2)
+		gui.set_text(gui.get_node("option3"), "3. " .. option3)
+		gui.set_text(gui.get_node("option4"), "4. " .. option4)
+		msg.post("/dialogue", "enable")--]]--
+	end
+	if callback == "" or callback == nil then
+		print("no callback")
+	else
+		print(option .. " to " .. callback)
+	end
+	if option == 4 then
+		--print("fyra")
+	end
+	if callback == "marques" then
+		if option == 4 then
+			game = false
+			won = true
+			ending = "YouTube Rewind 2018"
+			callEnding(true, "YouTube Rewind 2018")
+			release()
+		else
+			game = false
+			won = false
+			ending = "Not Will Smith"
+			callEnding(false, "Not Will Smith")
+			release()
+		end
+	end
+	if callback == "hjalp1" then 
+		if option == 1 or option == 3 then
+			dialogue("", "Pkeod Pkeodson", "How can I help you?", "I'm Naiv", "I'm here for the, uh, maintenance", "I'm with Aco Corp", "Uh...the engines", "hjalp2")
+		elseif option == 2 then
+			sis = sis + 1
+			dialogue("", "Pkeod Pkeodson", "How can I help you?", "I'm Naiv", "I'm here for the, uh, maintenance", "I'm with Aco Corp", "Uh...the engines", "hjalp2")
+			
+		elseif option == 4 then
+			
+			dialogue("", "Pkeod Pkeodson", "I'm just a cpu named after pkeod ):", "Did you just break the fourth wall?", "Why are you named after pkeod", "Put the game back please, I want to play it properly", "That's exactly what pkeod would say", "pkeod1")
+			
+		end
+	elseif callback == "pkeod1" then
+		if option == 1 then
+			dialogue("", "Pkeod Pkeodson", "Uhh... yes.", "why are you here", "who even is pkeod?", "yeah but why are you named after pkeod tho", "How do I know you aren't pkeod", "pkeod2")
+		elseif option == 2 then
+			dialogue("", "Pkeod Pkeodson", "I was added to honor pkeod", "May pkeod bring prosperity", "May pkeod bring prosperity", "May pkeod bring prosperity", "May pkeod bring prosperity", "prosperity")
+		elseif option == 3 then
+			game = false
+			won = false
+			ending = "Easter Egg Hater"
+			callEnding(false, "Easter egg hater")
+			release()
+		elseif option == 4 then
+			dialogue("", "Pkeod Pkeodson", "Oh? And what if I am real?", "o.o", "o.o", "o.o", "o.o", "pkeodreal")
+		end
+	elseif callback == "pkeod2" then
+		if option == 1 or option == 3 then
+			dialogue("", "Pkeod Pkeodson", "To honor the almighty pkeod!", "May pkeod bring prosperity", "May pkeod bring prosperity", "May pkeod bring prosperity", "May pkeod bring prosperity", "prosperity")
+		elseif option == 2 then
+			dialogue("", "Pkeod Pkeodson", "Pkeod is the greatness in us.", "May pkeod bring prosperity", "May pkeod bring prosperity", "May pkeod bring prosperity", "May pkeod bring prosperity", "prosperity")
+		elseif option == 4 then
+			dialogue("", "Pkeod Pkeodson", "Maybe I am the real pkeod", "o.o", "o.o", "o.o", "o.o", "pkeodreal")
+		end
+	elseif callback == "prosperity" then
+		game = false
+		won = true
+		ending = "Live Long and Prosper under pkeod rule"
+		callEnding(true, "Live Long and Pkeod")
+		release()
+	elseif callback == "pkeodreal" then
+		print("pkeod real ending registered")
+		game = false
+		won = true
+		ending = "Meet the real pkeod"
+		callEnding(won, ending)
+		release()
+	elseif callback == "hjalp2" then--"I'm Naiv", "I'm here for the, uh, maintenance", "I'm with Aco Corp", "Uh...the engines", "hjalp2")
+		dialogue("", "Pkeod Pkeodson", "Go left and take the stairs", "Okay", "Si", "Sure", "Will do", "hjalp3")
+		
+	elseif callback == "hjalp3" then
+		release()
+		pkeodHasTalked = true
+		msg.post(".", "disable")
+	elseif callback == "elevator" then --option2 = "Main Engineering", option3 = "Launch", option4 = "Punch Lightbulb"
+		msg.post(".", "disable")
+		if option == 10 then
+			timer.delay(60, false, elevatorOne)
+		elseif option == 20 then
+			timer.delay(60, false, elevatorTwp)
+		elseif option == 3 then
+			callEnding(true, "Sí")
+		elseif option ~= 4 then
+			timer.delay(20, false, elevatorTri)
+		else
+			msg.post("/background", "disable")
+			msg.post("/foreground", "disable")
+			msg.post("/bg", "disable")
+			msg.post("/bg", "disable")
+			msg.post("/bg", "disable")
+			msg.post("/bg", "disable")
+			timer.delay(20, false, elevatorFour)
+		end
+	end
+end
+--[[function dialogue(charimg, charname, text, option1, option2, option3, option4, callback)
+	msg.post("/dialogue", "disable")
+	if charimg == "" then
+		charimg = "bjornirl"
+		--charimg = gui.get_flipbook(gui.get_node("face"))
+	end
+	gui.play_flipbook(gui.get_node("face"), charimg)
+	gui.set_text(gui.get_node("name"), charname)
+	gui.set_text(gui.get_node("dialogue"), text)
+	gui.set_text(gui.get_node("option1"), "1. " .. option1)
+	gui.set_text(gui.get_node("option2"), "2. " .. option2)
+	gui.set_text(gui.get_node("option3"), "3. " .. option3)
+	gui.set_text(gui.get_node("option4"), "4. " .. option4)
+	msg.post("/dialogue", "enable")
+end--]]
+function init(self)
+	slowMove = false
+	pkeodHasTalked = false
+	animatingText = ""
+	animatingPos = 1
+	sis = 0
+	flutes = 0
+	text = ""
+	textRenderedAt = math.floor(os.clock() * 10)
+	canRespond = false
+	ending = ""
+	won = false
+	game = true --set to false when ending is reached
+	function release()
+		msg.post("/bk#script", "moveable", { moveable = true } )
+	end
+	function startDBC(text)
+		msg.post("/bk#script", "moveable", { moveable = false } )--disable movement during dialogue
+		print("started")
+		animatingText = text
+		animatingPos = 1
+		dialogueByChar()
+	end
+	function dialogueByChar()
+		--print("dBC")
+		gui.set_text(gui.get_node("dialogue"), string.sub(animatingText, 1, animatingPos))
+		if string.len(animatingText) > animatingPos then
+			--print("yee")
+			animatingPos = animatingPos + 1
+			timer.delay(0.07, false, dialogueByChar)
+		else
+			--print("done rendering")
+			textRenderedAt = math.floor(os.clock() * 10)
+			canRespond = true
+		end
+	end
+	function callEnding(won, name)
+		--print("pkeod real ending sent")
+		
+		game = false
+		canRespond = false
+		if won then
+			--print("pkeod real ending won")
+			
+			--msg.post("/bk#script", "won")
+			msg.post("/endscreen#gui", "won", {ending = name})
+			
+		else
+			--print("pkeod real ending lost")
+			
+			--msg.post("/bk#script", "lost")
+			msg.post("/endscreen#gui", "lost", {ending = name} )
+			
+		end
+		--msg.post("/bk#script", "gameover")
+		msg.post("/endscreen#gui", "enable")
+		msg.post("/bk#script", "regen")
+		animatingText = ""
+		animatingPos = 1
+		sis = 0
+		flutes = 0
+		text = ""
+		textRenderedAt = math.floor(os.clock() * 10)
+		canRespond = false
+		ending = ""
+		won = false
+		game = true
+	end
+		--[[for i = 1, string.len(text) do
+	end
+				
+			-- do things
+		end--]]
+		
+	-- Add initialization code here
+	-- Remove this function if not needed
+end
+function update(self, dt)
+	if slowMove then
+		print("weeeeee")
+		pos = vmath.vector3(pos.x, (pos.y + 0.1), pos.z)
+	-- Add update code here
+	-- Remove this function if not needed
+	end
+end
+function on_message(self, message_id, message, sender)
+	if message_id == hash("set") and game then
+		canRespond = false
+		
+		--print(message.option1)
+		--print(type(message.option1))
+		--dialogue(message.charimg, message.charname, message.text, message.option1, message.option2, message.option3, message.option4)
+		callback = message.callback
+		msg.post("/dialogue", "disable")
+		if message.charimg == "" then
+			--charimg = "bjornirl"
+			charimg = gui.get_flipbook(gui.get_node("face"))
+		else
+			charimg = message.charimg
+		end
+		gui.play_flipbook(gui.get_node("face"), charimg)
+		gui.set_text(gui.get_node("name"), message.charname)
+		startDBC(message.text)
+		gui.set_text(gui.get_node("option1"), "1. " .. message.option1)
+		gui.set_text(gui.get_node("option2"), "2. " .. message.option2)
+		gui.set_text(gui.get_node("option3"), "3. " .. message.option3)
+		gui.set_text(gui.get_node("option4"), "4. " .. message.option4)
+		msg.post("/dialogue", "enable")
+	elseif message_id == hash("option") and canRespond and game then
+		--print(message.option)
+		user(message.option, callback)
+	elseif message_id == hash("regen") then
+	elseif message_id == hash("callEnding") then
+		callEnding(message.won, message.name)
+	end
+	--msg.post("/dialogue#dialogue", "set", { charimg = "Aco", charname = "Will Smith", text = "Fortnite, ", option1 = "and Mike Arse Brew Leaf", option2 = "and Mikael Brow Lead", option3 = "and Mark Mass Url Leave", option4 = "and Marques Brownlee"} )
+end
+
+function on_input(self, action_id, action)
+	-- Add input-handling code here
+	-- Remove this function if not needed
+end
+
+function on_reload(self)
+	-- Add input-handling code here
+	-- Remove this function if not needed
+end
